@@ -1,0 +1,83 @@
+EMAILS : 
+TONY : tony.mansi@me.com     => 
+==================================
+
+
+
+
+* (DEVELOPING .. ) Register a device in watson IOT		(PARTIALLY DONE ..)
+
+* (DEVELOPING .. ) TWILO send sms at danger ==> ASK (Heitham & ROZEKA .. TEAM ARCKA)		
+	- send sms for trial	(DONE)
+	- (when danger detected by watson visual recognition)? send sms at danger
+	- send smarter sms (smarter message containing different and more information : number of people in the room , who .. etc)
+
+* (DEVELOPING .. )CLOUDANT -> Heitham's design and model -> use it & enhance
+
+* (PENDING ..) Detect danger from watson VISUAL RECOGNITION json output [either classify in the service?! OR Use NLC?! OR hardcoded : check on the internet if there are any references for the json output of the watson VR]	
+	- sending the frame to visual recognition to detect objects (DONE)
+	- seding the frame to detect faces		(DONE)
+	- Cut the faces from the frames
+	- seding the frame to identify faces (after cutting them)  ==> JSon(who they are with percentage) => save to cloudant ==> determine if danger or not (to alert)
+* (PENDING .. )Object storage -> Heitham's design and model -> use it & enhance
+* (PENDING .. ) UI -> Heitham's design -> use it & enhanc
+
+
+
+
+Steps to do :
+________
+** Receive frame from the camera (done) => watson objects (done)| event in cloudant => watson faces => crop their faces => watson classifier(objects or faces"not sure") => store in the same cloudant event => save croped photos in object storge => send event in cloudant ===> (??????zipping new photos to classify)
+
+** Communicate with CONVERSATION service .. 
+
+
+
+_____ WHEN DONE______
+*Check if any missing feature from the POC
+
+*Enhance the project
+	- Data between Raspberry PI and the backend
+	- Enhance the design pattern and software engineering in the backend
+	- Make code faster if possible
+	- Make code secured if possible
+*
+ 
+
+
+*QUESTIONS? 
+1) Why don't we put the openCV on the nodejs backend app instead of excessive processing on the Raspberry ?!!
+	- We can use very cheep ARDUINO or any other cheeper Raspberry PIs or .... etc .
+		# As it can only talk to the backend when there is internet
+		# If NO INTERNET , it has an external storage where it stores (frames or video) on it until we have internet connection back and sends all the data to the backend and deletes all the stored data.
+		# if openCV is needed on the RaspberryPi , then it can only work when internet is down
+2) Why don't we use "MQTT" with iot watson platform from nodejs instead of RESTFUL as it's light and faster .. (DOES THE WATSON IOT NODEJS SDK USE ALREADY MQTT ?!!! ,,, IF YES .. remove this question)
+3) Why don't we make a live video streams on the frontend from the camera ?! (BETTER USE : C++ Web assembly)
+4) Why don't we connect a Microphone and real Alarm on the RaspberryPi ?
+
+
+
+_____
+GENERAL TASKS : (FEATURES AND IMPLEMENTATIONS ONLY ==> No urgent enhancements needed now)
+1) Marketing (FINAL EXAM)
+2) watson visual recognition ==> finish features ==> LATER : classify faster 
+3) NODEJS => fundamentals => Express => design patterns => advanced topics => enhancements
+
+
+
+
+
+
+////
+1)
+frame -> API(IOT Later) -> Visual Recognition (Objects + Faces) -> cut faces from the frame -> make a big json of objects contaning each face pic ->classify each face -> update info in json -> (Make an event json {} -> send event to cloudant) // Store faces pics in object storage with the id of the person (unkown_person = 0) // if (person is not authorized || dangerous object ex. weapon or fire) --> Send twilioMsg 
+
+2) CLOUDANT ( persons - accounts - events - cameras )
+   Cameras = (camera_ID / authorized people or Unauthorized people / location / account associated with the camera /  )
+   Persons = (person_id / )
+   accounts = (person_id , )
+
+
+3) Visual Recognition classifies the faces depending on their person_id 
+
+4) chat("Iwant to add a new camera" => ok Scan this QR code from your camera device ) --> API backend -> generate QR code -> if Req.appCompatibility == slack || facebook messanger || base64Bit 

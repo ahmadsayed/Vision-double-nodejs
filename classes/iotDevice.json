@@ -1,0 +1,26 @@
+{
+    "newDeviceData": {
+        "typeId": "string",
+        "deviceId": "string",
+        "deviceInfo": {
+            "serialNumber": "string",
+            "manufacturer": "string",
+            "model": "string",
+            "deviceClass": "string",
+            "description": "string",
+            "fwVersion": "string",
+            "hwVersion": "string",
+            "descriptiveLocation": "string"
+        },
+        "location": {
+            "longitude": 0,
+            "latitude": 0,
+            "elevation": 0,
+            "accuracy": 0,
+            "measuredDateTime": "2017-08-05T15:06:35.936Z"
+        },
+        "metadata": {},
+        "authToken": "string"
+    },
+    "deviceInfo": {}
+}

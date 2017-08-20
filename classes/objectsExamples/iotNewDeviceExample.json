@@ -1,0 +1,25 @@
+{
+    "newDeviceData": {
+        "typeId": "453",
+        "deviceId": "Raspberry",
+        "deviceInfo": {
+            "serialNumber": "98432",
+            "manufacturer": "Hoss_IBM",
+            "model": "RaspberryPi3",
+            "deviceClass": "microprocessor",
+            "description": "Embedded system microprocessor Kit",
+            "fwVersion": "14",
+            "hwVersion": "43",
+            "descriptiveLocation": "Room Camera Connected"
+        },
+        "location": {
+            "longitude": 30.075388,       
+            "latitude": 31.019743,        
+            "elevation": 34,            
+            "accuracy": 100,
+            "measuredDateTime": "2017-08-05T15:06:35.936Z"
+        },
+        "metadata": {},
+        "authToken": "new123456device"
+    }
+}
