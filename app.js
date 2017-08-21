@@ -20,7 +20,8 @@ var home = require('./routes/homeRoute.js');
 var base64img = require('./routes/watson/visualRecognition/base64image.js');
 var qrRoute = require('./routes/qrRoute.js');
 var cameraAPI = require('./routes/cameraAPI.js');
-var conversationRoutes = require(appRoot + 'routes/watson/watsonConversationRoutes.js');
+var conversationRoutes = require(appRoot + 'routes/watson/watsonConversationRoutes.js').router;
+var slackRoutes = require(appRoot + 'routes/watson/watsonConversationRoutes.js').slackRouter;
 var watsonIotFunc = require(appRoot + "functions/watsonIotFunctions.js");
 var objectStorageFunc = require(appRoot + "functions/objectStorageFunctions.js");
 //var parse64img = require('./routes/parse64image.js');
@@ -51,6 +52,8 @@ function allowCrossDomain(req, res, next) {
         next();
     }
 }
+
+
 
 
 
@@ -225,6 +228,7 @@ app.use('/image', base64img);
 app.use('/QR', allowCrossDomain, qrRoute);            //QR CODE 
 app.use('/Camera', allowCrossDomain, cameraAPI);
 app.use('/conversation', allowCrossDomain, conversationRoutes);
+app.use('/slack_conversation', allowCrossDomain , slackRoutes );
 app.use(express.static(__dirname + '/public'));
 
 

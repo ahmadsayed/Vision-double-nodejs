@@ -5,7 +5,7 @@ var qrFunction = require(appRoot + "functions/qrFunctions.js");
 var express = require('express');
 var app = express();
 var router = express.Router();
-
+var slackRouter = express.Router();
 // Create the service wrapper
 var conversation = new Conversation({
   // If unspecified here, the CONVERSATION_USERNAME and CONVERSATION_PASSWORD env properties will be checked
@@ -18,6 +18,23 @@ var conversation = new Conversation({
 
 // Endpoint to be call from the client side
 router.post('/sendchatmessage', function (req, res) {
+
+  processWatson(req, res, function(message) {
+        res.json(message);
+    });
+});
+
+slackRouter.post('/slackprecessor', function (req, res) {
+
+  req.body = {"input" : req.body};
+  processWatson(req, res, function(message) {
+        message = {"text" : message.output.text[0]};
+        res.json(message);
+    }
+    );
+});
+
+function processWatson(req, res, hook) {
   var workspace = process.env.WORKSPACE_ID || 'bb169a77-7664-48d8-8792-82deff11e448';
   if (!workspace || workspace === '<workspace-id>') {
     return res.json({
@@ -49,17 +66,17 @@ router.post('/sendchatmessage', function (req, res) {
         responceJson.otherResources.resourceObject = qrBase64;
         //console.log("from watson :"+ responceJson.otherResources.resourceObject);
         responceJson.output.text[0] = responceJson.output.text[0].replace("_getQr_", "");
-        return res.json(responceJson);
+        return hook(responceJson);
       });
     }
     else {
-      return res.json(responceJson);
+      return hook(responceJson);
     }
 
     //return res.json(responceJson);
   });
-});
 
+}
 /**
  * Updates the response text using the intent confidence
  * @param  {Object} input The request to the Conversation service
@@ -92,4 +109,4 @@ function updateMessage(input, response, callback) {
   return response;
 }
 
-module.exports = router;     
+module.exports =  { router, slackRouter};     
